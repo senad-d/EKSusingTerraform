@@ -7,4 +7,5 @@ terraform.tfvars
 aws.json
 plan*
 .terraform.tfstate.lock.info
+terraform.tfstate.backup
 kubeconfig_learnk8s
