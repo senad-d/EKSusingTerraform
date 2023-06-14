@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">= 0.12.0"
+  required_version = "1.5.0"
 }
 
 provider "aws" {
-  version = ">= 2.28.1"
+  version = "~> 4.0"
   region  = var.region
 }
 
@@ -52,7 +52,7 @@ resource "aws_security_group" "all_worker_mgmt" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.6.0"
+  version = "5.0.0"
 
   name                 = "test-vpc"
   cidr                 = "10.0.0.0/16"
@@ -77,9 +77,9 @@ module "vpc" {
 module "eks" {
   source       = "terraform-aws-modules/eks/aws"
   cluster_name    = var.cluster_name
-  cluster_version = "1.17"
+  #cluster_version = "1.17"
   subnets         = module.vpc.private_subnets
-  version = "12.2.0"
+  version = "19.15.3"
   cluster_create_timeout = "1h"
   cluster_endpoint_private_access = true 
 
@@ -108,7 +108,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
   load_config_file       = false
-  version                = "~> 1.11"
+  version                = "2.0.0"
 }
 
 resource "kubernetes_deployment" "example" {
