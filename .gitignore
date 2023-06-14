@@ -9,3 +9,4 @@ plan*
 .terraform.tfstate.lock.info
 terraform.tfstate.backup
 kubeconfig_learnk8s
+terraform.tfstate
