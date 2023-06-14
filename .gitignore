@@ -1,3 +1,8 @@
+.idea
+*.iml
 .terraform
 .terraform.lock.hcl
-
+terraform.tfvars
+.DS_Store
+aws.json
+plan*
