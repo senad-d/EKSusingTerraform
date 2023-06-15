@@ -57,25 +57,48 @@ module "vpc" {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = "1"
   }
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+    Project     = "Testing_terraform"
+  }
 }
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.30.3"
 
-  cluster_name    = local.cluster_name
-  cluster_version = "1.27"
-  subnet_ids      = module.vpc.private_subnets
+  cluster_name                   = local.cluster_name
+  cluster_version                = "1.27"
+  subnet_ids                     = module.vpc.private_subnets
+  vpc_id                         = module.vpc.vpc_id
+  cluster_endpoint_public_access = true
 
-  vpc_id = module.vpc.vpc_id
+  cluster_addons = {
+    coredns = {
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent = true
+    }
+  }
+
 
   eks_managed_node_groups = {
     first = {
       desired_capacity = 1
-      max_capacity     = 10
+      max_capacity     = 1
       min_capacity     = 1
-
-      instance_type = "m3.micro"
+      name             = "Testing_terraform"
+      instance_type    = "m3.micro"
     }
+  }
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+    Project     = "Testing_terraform"
   }
 }
