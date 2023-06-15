@@ -1,0 +1,55 @@
+ingress-nginx:
+  controller:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 50
+      targetMemoryUtilizationPercentage: 50
+
+    resources:
+      requests:
+        memory: 128M
+        cpu: 500m
+      limits:
+        memory: 302M
+        cpu: 500m
+
+    podAnnotations:
+      co.elastic.logs/module: nginx
+      co.elastic.logs/fileset.stdout: access
+      co.elastic.logs/fileset.stderr: error
+
+    service:
+      externalTrafficPolicy: Local
+      #loadBalancerIP: 35.158.178.115
+      #targetPorts:
+       # http: http
+       # https: http
+      #internal:
+        #enabled: true
+      annotations:
+        #service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+        #service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: 2100
+        #nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+        #service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|ssl)
+        #service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+        #nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        #nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        #nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+    config:
+      use-proxy-protocol: "true"
+      force-ssl-redirect: "true"
+      real-ip-header: "proxy_protocol"
+      set-real-ip-from: "0.0.0.0/0"
+      client-header-timeout: "300"
+      client-body-timeout: "300"
