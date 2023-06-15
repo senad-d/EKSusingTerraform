@@ -39,11 +39,11 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name                 = "k8s-vpc"
-  cidr                 = "172.16.0.0/16"
+  name                 = "test-k8s-vpc"
+  cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
-  public_subnets       = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
+  private_subnets      = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
+  public_subnets       = ["10.0.40.0/24", "10.0.50.0/24", "10.0.60.0/24"]
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
@@ -64,7 +64,7 @@ module "eks" {
   version = "18.30.3"
 
   cluster_name    = local.cluster_name
-  cluster_version = "1.24"
+  cluster_version = "1.27"
   subnet_ids      = module.vpc.private_subnets
 
   vpc_id = module.vpc.vpc_id
