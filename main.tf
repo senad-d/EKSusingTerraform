@@ -90,7 +90,7 @@ module "eks" {
   eks_managed_node_groups = {
     first = {
       desired_capacity = 1
-      max_capacity     = 1
+      max_capacity     = 3
       min_capacity     = 1
       name             = "Testing_terraform"
       instance_type    = "m3.micro"
