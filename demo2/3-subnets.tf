@@ -6,7 +6,7 @@ resource "aws_subnet" "private-eu-west-1a" {
   tags = {
     "Name"                            = "private-eu-west-1a"
     "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/learnk8s"      = "owned"
+    "kubernetes.io/cluster/learnk8s"  = "owned"
     "Project"                         = "learnk8s-test"
 
   }
@@ -20,7 +20,7 @@ resource "aws_subnet" "private-eu-west-1b" {
   tags = {
     "Name"                            = "private-eu-west-1b"
     "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/learnk8s"      = "owned"
+    "kubernetes.io/cluster/learnk8s"  = "owned"
     "Project"                         = "learnk8s-test"
   }
 }
@@ -32,10 +32,10 @@ resource "aws_subnet" "public-eu-west-1a" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                       = "public-eu-west-1a"
-    "kubernetes.io/role/elb"     = "1"
+    "Name"                           = "public-eu-west-1a"
+    "kubernetes.io/role/elb"         = "1"
     "kubernetes.io/cluster/learnk8s" = "owned"
-    "Project"                    = "learnk8s-test"
+    "Project"                        = "learnk8s-test"
   }
 }
 
@@ -46,9 +46,9 @@ resource "aws_subnet" "public-eu-west-1b" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                       = "public-eu-west-1b"
-    "kubernetes.io/role/elb"     = "1"
+    "Name"                           = "public-eu-west-1b"
+    "kubernetes.io/role/elb"         = "1"
     "kubernetes.io/cluster/learnk8s" = "owned"
-    "Project"                    = "learnk8s-test"
+    "Project"                        = "learnk8s-test"
   }
 }
